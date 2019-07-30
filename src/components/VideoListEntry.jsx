@@ -5,10 +5,9 @@ var VideoListEntry = (props) => (
       alt="" />
     </div>
     <div className="media-body">
-      <div className="video-list-entry-title">{props.video.snippet.title}
+      <div className="video-list-entry-title" onClick={props.onClick}>{props.video.snippet.title}
       </div>
       <div className="video-list-entry-detail">{props.video.snippet.description}</div>
-
     </div>
   </div>
 );
