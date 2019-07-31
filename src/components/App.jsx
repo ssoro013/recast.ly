@@ -1,7 +1,9 @@
+import YOUTUBE_API_KEY from "../config/youtube.js"
 import Search from './Search.js'
 import VideoPlayer from './VideoPlayer.js'
 import VideoList from './VideoList.js'
 import exampleVideoData from '../data/exampleVideoData.js'
+import searchYouTube from '../lib/searchYouTube.js'
 
 // var App = () => (
 //   <div>
@@ -26,10 +28,16 @@ class App extends React.Component{
     super(props)
     this.state = {
       exampleVideoData: exampleVideoData,
-      video: exampleVideoData[0]
+      video: exampleVideoData[0],
+      searchValue:''
     };
     this.onClick = this.onClick.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
+
+  // componentDidMount(){}
+  // componentWillUnmount(){}
 
   onClick(e) {
     //e is an object that contains information about the event you click
@@ -42,13 +50,28 @@ class App extends React.Component{
     this.setState({video: video[0]})
   }
 
+  onChange(e){
+    this.setState({searchValue: e.target.value})
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    const options = {
+      // searchValue: this.state.searchValue
+      query:this.state.searchValue,
+      max:5,
+      key: YOUTUBE_API_KEY
+    }
+    const callback = (data) => console.log(data);
+    searchYouTube(options, callback)
+  }
 
   render(){
     return(
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search />
+            <Search onChange={this.onChange} onSubmit={this.onSubmit}/>
           </div>
         </nav>
       <div className="row">

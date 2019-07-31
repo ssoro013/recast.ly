@@ -1,12 +1,10 @@
 import VideoListEntry from './VideoListEntry.js'
 
 var VideoList = (props) => {
-  console.log(props.videos)
   const videoList = props.videos.map(video => (
     <VideoListEntry video={video} onClick={props.onClick}/>
     // <VideoListEntry video={video}/>
   ));
-  console.log(videoList);
   return (
   <div className="video-list">
   {videoList}
